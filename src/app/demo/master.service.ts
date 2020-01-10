@@ -5,4 +5,6 @@ import { ValueService } from './value.service';
 export class MasterService {
   constructor(private valueService: ValueService) { }
   getValue() { return this.valueService.getValue(); }
+  getObservableValue() { return this.valueService.getObservableValue() }
+  getPromiseValue() { return this.valueService.getPromiseValue() }
 }
