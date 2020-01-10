@@ -7,12 +7,16 @@ import { BannerComponent } from './banner/banner.component';
 import { Banner2Component } from './banner2/banner2.component';
 import { DetailComponent } from './detail/detail.component';
 import { FormsModule } from '@angular/forms';
+import { BannerExternalComponent } from './banner-external/banner-external.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 @NgModule({
   declarations: [
     AppComponent,
     BannerComponent,
     Banner2Component,
-    DetailComponent
+    DetailComponent,
+    BannerExternalComponent,
+    WelcomeComponent
   ],
   imports: [
     BrowserModule,
