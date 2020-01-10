@@ -63,7 +63,7 @@
 //             // providers:    [ UserService ]  // NO! Don't provide the real service!
 //             // Provide a test-double instead
 //             providers: [{ provide: UserService, useValue: userServiceStub }]
-//         });
+//         }).compileComponents();
 
 //         fixture = TestBed.createComponent(WelcomeComponent);
 //         comp = fixture.componentInstance;
