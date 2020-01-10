@@ -1,5 +1,5 @@
 import { Input, Output, EventEmitter } from '@angular/core';
-import { Hero } from './hero';
+import { Hero } from '../model/hero';
 
 
 export class DashboardHeroComponent {

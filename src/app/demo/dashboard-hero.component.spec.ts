@@ -1,5 +1,6 @@
 import { DashboardHeroComponent } from "./dashboard-hero.component";
-import { Hero } from './hero';
+import { Hero } from '../model/hero';
+
 
 it('raises the selected event when clicked', () => {
     const comp = new DashboardHeroComponent();

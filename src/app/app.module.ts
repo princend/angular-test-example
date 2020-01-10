@@ -9,6 +9,8 @@ import { DetailComponent } from './detail/detail.component';
 import { FormsModule } from '@angular/forms';
 import { BannerExternalComponent } from './banner-external/banner-external.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { TwainComponent } from './twain/twain.component';
+import { TwainService } from './service/twain.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -16,14 +18,15 @@ import { WelcomeComponent } from './welcome/welcome.component';
     Banner2Component,
     DetailComponent,
     BannerExternalComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    TwainComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule
   ],
-  providers: [],
+  providers: [TwainService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
