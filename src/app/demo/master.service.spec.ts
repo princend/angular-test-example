@@ -42,7 +42,7 @@ describe('MasterService without Angular testing support', () => {
         expect(valueServiceSpy.getValue.calls.mostRecent().returnValue)
             .toBe(stubValue);
 
-        expect(masterService.getObservableValue())
+        expect(masterService.getObservableValue() as any)
             .toBe(stubValue2, 'service returned stub value');
     });
 });
