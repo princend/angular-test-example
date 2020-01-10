@@ -1,4 +1,4 @@
-// import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, inject, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
 
 // import { WelcomeComponent, UserService } from './welcome.component';
 
@@ -62,12 +62,13 @@
 //             declarations: [WelcomeComponent],
 //             // providers:    [ UserService ]  // NO! Don't provide the real service!
 //             // Provide a test-double instead
-//             providers: [{ provide: UserService, useValue: userServiceStub }]
+//             providers: [{ provide: UserService, useValue: userServiceStub },
+//             { provide: ComponentFixtureAutoDetect, useValue: true }]
 //         }).compileComponents();
 
 //         fixture = TestBed.createComponent(WelcomeComponent);
 //         comp = fixture.componentInstance;
-
+//         fixture.detectChanges();
 //         // UserService actually injected into the component
 //         userService = fixture.debugElement.injector.get(UserService);
 //         componentUserService = userService;
