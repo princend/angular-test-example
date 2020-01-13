@@ -1,5 +1,6 @@
 import { TestBed, async, tick, fakeAsync, ComponentFixture } from '@angular/core/testing';
 import { CanvasComponent } from './canvas.component';
+import { defer } from 'rxjs';
 describe('CanvasComponent', () => {
 
     let component: CanvasComponent;
@@ -23,9 +24,9 @@ describe('CanvasComponent', () => {
     });
 
     beforeEach(() => {
-      fixture = TestBed.createComponent(CanvasComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
+        fixture = TestBed.createComponent(CanvasComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
 
 
@@ -38,16 +39,16 @@ describe('CanvasComponent', () => {
     //   }));
 
     it('toBlob should be able to run in fakeAsync', fakeAsync(() => {
-        const canvas=component.sampleCanvas.nativeElement;
+        const canvas = component.sampleCanvas.nativeElement;
         let blob = null;
-        canvas.toBlob(function (b) {
-            blob = b;
-        });
+        canvas.toBlob((b) => blob = b);
         tick();
         expect(blob.size).toBe(200);
     })
     );
-
-
 });
+
+export function asyncData<T>(data: T) {
+    return defer(() => { Promise.resolve(data) })
+}
 
