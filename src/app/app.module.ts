@@ -12,6 +12,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { TwainComponent } from './twain/twain.component';
 import { TwainService } from './service/twain.service';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { HighlightDirective } from './highlight/highlight.directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     BannerExternalComponent,
     WelcomeComponent,
     TwainComponent,
-    DashboardComponent
+    DashboardComponent,
+    HighlightDirective
   ],
   imports: [
     BrowserModule,
