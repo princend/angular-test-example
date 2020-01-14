@@ -2,6 +2,7 @@ import { DashboardHeroComponent } from "./dashboard-hero.component";
 import { Hero } from '../model/hero';
 import { TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { DebugElement, Component } from '@angular/core';
 
 
 
@@ -45,7 +46,46 @@ describe('DashboardHeroComponent', () => {
         expect(selectedHeros).toBe(expectedHero)
     });
 
+
+    it('should display hero name in uppercase', () => {
+        const expectedPipeName = expectedHero.name.toUpperCase();
+        expect(heroEl.textContent).toContain(expectedPipeName);
+    });
+
+    it('should raise selected event when clicked(triggerEventHandler)', () => {
+        let selectedHero: Hero;
+        comp.selected.subscribe((hero) => { selectedHero = hero });
+        heroDe.triggerEventHandler('click', null);
+        expect(selectedHero).toBe(expectedHero);
+    });
+
+
+    it('should raise selected event when clicked (element.click)', () => {
+        let selectedHero: Hero;
+        comp.selected.subscribe((hero) => { selectedHero = hero })
+        heroEl.click();
+        expect(selectedHero).toBe(expectedHero);
+    });
+
+
+    it('should raise selected event when clicked (click helper)', () => {
+        let selectedHero: Hero;
+        comp.selected.subscribe((hero) => { selectedHero = hero })
+        click(heroDe)
+        click(heroEl)
+        expect(selectedHero).toBe(expectedHero);
+    });
 })
 
+
+
+export const ButtonClickEvents = {
+    left: { button: 0 },
+    right: { button: 2 }
+}
+
+export function click(el: DebugElement | HTMLElement, eventObj: any = ButtonClickEvents.left): void {
+    el instanceof HTMLElement ? el.click() : el.triggerEventHandler('click', eventObj)
+}
 
 
