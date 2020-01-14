@@ -15,7 +15,8 @@ import { HeroDetailService } from './hero-detail.service';
 let component: HeroDetailComponent;
 let fixture: ComponentFixture<HeroDetailComponent>;
 let page: Page;
-
+let activatedRoute: ActivatedRouteStub;
+let expectedHero: Hero;
 ////// Tests //////
 // describe('HeroDetailComponent', () => {
 //   beforeEach(() => {
@@ -139,59 +140,77 @@ let page: Page;
 //     .compileComponents();
 //   }));
 
-//   describe('when navigate to existing hero', () => {
-//     let expectedHero: Hero;
+describe('when navigate to existing hero', () => {
 
-//     beforeEach(async(() => {
-//       expectedHero = firstHero;
-//       activatedRoute.setParamMap({ id: expectedHero.id });
-//       createComponent();
-//     }));
 
-//     it('should display that hero\'s name', () => {
-//       expect(page.nameDisplay.textContent).toBe(expectedHero.name);
-//     });
 
-//     it('should navigate when click cancel', () => {
-//       click(page.cancelBtn);
-//       expect(page.navigateSpy.calls.any()).toBe(true, 'router.navigate called');
-//     });
+  beforeEach((() => {
+    const routerSpy = createRouterSpy();
+    activatedRoute = new ActivatedRouteStub();
+    expectedHero = getTestHeroes()[0];
+    activatedRoute.setParamMap({ id: expectedHero.id });
+    TestBed.configureTestingModule({
+      imports: [FormsModule, HttpClientTestingModule],
+      declarations: [HeroDetailComponent],
+      providers: [HeroService,
+        { provide: Router, useValue: routerSpy },
+        { provide: ActivatedRoute, useValue: activatedRoute }
+      ]
+    })
+    // createComponent();
+  }));
 
-//     it('should save when click save but not navigate immediately', () => {
-//       // Get service injected into component and spy on its`saveHero` method.
-//       // It delegates to fake `HeroService.updateHero` which delivers a safe test result.
-//       const hds = fixture.debugElement.injector.get(HeroDetailService);
-//       const saveSpy = spyOn(hds, 'saveHero').and.callThrough();
+  // it('should display that hero\'s name', (() => {
+  //   fixture = TestBed.createComponent(HeroDetailComponent);
+  //   component = fixture.componentInstance;
+  //   fixture.detectChanges();
+  //   const hostElment = fixture.nativeElement;
+  //   const nameDisplay: HTMLElement = hostElment.querySelector('span');
+  //   page = new Page(fixture);
+  //   fixture.detectChanges();
+  //   expect(nameDisplay.textContent).toBe(expectedHero.name);
+  // }));
 
-//       click(page.saveBtn);
-//       expect(saveSpy.calls.any()).toBe(true, 'HeroDetailService.save called');
-//       expect(page.navigateSpy.calls.any()).toBe(false, 'router.navigate not called');
-//     });
+  // it('should navigate when click cancel', () => {
+  //   click(page.cancelBtn);
+  //   expect(page.navigateSpy.calls.any()).toBe(true, 'router.navigate called');
+  // });
 
-//     it('should navigate when click save and save resolves', fakeAsync(() => {
-//       click(page.saveBtn);
-//       tick(); // wait for async save to complete
-//       expect(page.navigateSpy.calls.any()).toBe(true, 'router.navigate called');
-//     }));
+  // it('should save when click save but not navigate immediately', () => {
+  //   // Get service injected into component and spy on its`saveHero` method.
+  //   // It delegates to fake `HeroService.updateHero` which delivers a safe test result.
+  //   const hds = fixture.debugElement.injector.get(HeroDetailService);
+  //   const saveSpy = spyOn(hds, 'saveHero').and.callThrough();
 
-//     // it('should convert hero name to Title Case', () => {
-//     //   // get the name's input and display elements from the DOM
-//     //   const hostElement = fixture.nativeElement;
-//     //   const nameInput: HTMLInputElement = hostElement.querySelector('input');
-//     //   const nameDisplay: HTMLElement = hostElement.querySelector('span');
+  //   click(page.saveBtn);
+  //   expect(saveSpy.calls.any()).toBe(true, 'HeroDetailService.save called');
+  //   expect(page.navigateSpy.calls.any()).toBe(false, 'router.navigate not called');
+  // });
 
-//     //   // simulate user entering a new name into the input box
-//     //   nameInput.value = 'quick BROWN  fOx';
+  // it('should navigate when click save and save resolves', fakeAsync(() => {
+  //   click(page.saveBtn);
+  //   tick(); // wait for async save to complete
+  //   expect(page.navigateSpy.calls.any()).toBe(true, 'router.navigate called');
+  // }));
 
-//     //   // dispatch a DOM event so that Angular learns of input value change.
-//     //   nameInput.dispatchEvent(newEvent('input'));
+  // it('should convert hero name to Title Case', () => {
+  //   // get the name's input and display elements from the DOM
+  //   const hostElement = fixture.nativeElement;
+  //   const nameInput: HTMLInputElement = hostElement.querySelector('input');
+  //   const nameDisplay: HTMLElement = hostElement.querySelector('span');
 
-//     //   // Tell Angular to update the display binding through the title pipe
-//     //   fixture.detectChanges();
+  //   // simulate user entering a new name into the input box
+  //   nameInput.value = 'quick BROWN  fOx';
 
-//     //   expect(nameDisplay.textContent).toBe('Quick Brown  Fox');
-//     // });
-//   });
+  //   // dispatch a DOM event so that Angular learns of input value change.
+  //   // nameInput.dispatchEvent(newEvent('input'));
+
+  //   // Tell Angular to update the display binding through the title pipe
+  //   fixture.detectChanges();
+
+  //   expect(nameDisplay.textContent).toBe('Quick Brown  Fox');
+  // });
+});
 
 //   describe('when navigate with no hero id', () => {
 //     beforeEach(async( createComponent ));
@@ -237,6 +256,10 @@ let page: Page;
 /////////////////////
 import { FormsModule } from '@angular/forms';
 import { click } from '../demo/dashboard-hero.component.spec';
+import { HeroService } from '../service/hero.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRouteStub } from '../testing/activated-route-stub';
+import { getTestHeroes } from '../dashboard/dashboard.component.spec';
 
 
 // function formsModuleSetup() {
