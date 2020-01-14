@@ -11,6 +11,7 @@ import { BannerExternalComponent } from './banner-external/banner-external.compo
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TwainComponent } from './twain/twain.component';
 import { TwainService } from './service/twain.service';
+import { DashboardComponent } from './dashboard/dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +20,8 @@ import { TwainService } from './service/twain.service';
     DetailComponent,
     BannerExternalComponent,
     WelcomeComponent,
-    TwainComponent
+    TwainComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
