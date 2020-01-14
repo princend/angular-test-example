@@ -144,19 +144,28 @@ describe('when navigate to existing hero', () => {
 
 
 
-  beforeEach((() => {
+  beforeEach(async(() => {
     const routerSpy = createRouterSpy();
+    // let HeroDetailServiceSpy=jasmine.createSpyObj('')
     activatedRoute = new ActivatedRouteStub();
     expectedHero = getTestHeroes()[0];
     activatedRoute.setParamMap({ id: expectedHero.id });
     TestBed.configureTestingModule({
       imports: [FormsModule, HttpClientTestingModule],
       declarations: [HeroDetailComponent],
-      providers: [HeroService,
+      providers: [
+        // HeroService,
         { provide: Router, useValue: routerSpy },
         { provide: ActivatedRoute, useValue: activatedRoute }
       ]
+    }).overrideComponent(HeroDetailComponent,{
+      set:{
+        providers:[
+          {provide:HeroDetailService,useClass:HeroDetailServiceSpy}
+        ]
+      }
     })
+    .compileComponents()
     // createComponent();
   }));
 
@@ -260,6 +269,7 @@ import { HeroService } from '../service/hero.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRouteStub } from '../testing/activated-route-stub';
 import { getTestHeroes } from '../dashboard/dashboard.component.spec';
+import { asyncData } from '../canvas/canvas.component.spec';
 
 
 // function formsModuleSetup() {
@@ -368,4 +378,19 @@ export class Page {
 
 function createRouterSpy() {
   return jasmine.createSpyObj('Router', ['navigate']);
+}
+
+
+class HeroDetailServiceSpy {
+  testHero: Hero = {id: 42, name: 'Test Hero' };
+
+  /* emit cloned test hero */
+  getHero = jasmine.createSpy('getHero').and.callFake(
+    () => asyncData(Object.assign({}, this.testHero))
+  );
+
+  /* emit clone of test hero, with changes merged in */
+  saveHero = jasmine.createSpy('saveHero').and.callFake(
+    (hero: Hero) => asyncData(Object.assign(this.testHero, hero))
+  );
 }
